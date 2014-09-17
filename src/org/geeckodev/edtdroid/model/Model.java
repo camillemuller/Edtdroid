@@ -3,12 +3,9 @@ package org.geeckodev.edtdroid.model;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-
 import org.geeckodev.edtdroid.dao.DAO;
 
-import android.util.Log;
 
 public class Model {
 	private List<Establishment> estts;
@@ -147,12 +144,6 @@ public class Model {
 	}
 	
 	
-	public void findDiff(List<Day> old,List<Day> news)
-	{
-		List<Lesson> desLessons = Day.compare(old, news);
-		
-		
-		
-	}
+
 }
 

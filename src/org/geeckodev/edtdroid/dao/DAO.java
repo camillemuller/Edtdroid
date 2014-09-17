@@ -1,26 +1,18 @@
 package org.geeckodev.edtdroid.dao;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import org.apache.http.conn.scheme.PlainSocketFactory;
-import org.apache.http.conn.scheme.Scheme;
-import org.apache.http.conn.scheme.SchemeRegistry;
 import org.geeckodev.edtdroid.model.Day;
 import org.geeckodev.edtdroid.model.Department;
 import org.geeckodev.edtdroid.model.Establishment;
 import org.geeckodev.edtdroid.model.Lesson;
 import org.geeckodev.edtdroid.model.Group;
 import org.geeckodev.edtdroid.model.Model;
-
 import android.annotation.SuppressLint;
-import android.util.Log;
 
 public class DAO {
 	private final String user = "appli";

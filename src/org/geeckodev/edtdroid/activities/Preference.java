@@ -76,6 +76,7 @@ public class Preference extends PreferenceActivity implements
 				.registerOnSharedPreferenceChangeListener(this);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences sp, String key) {
 		if (key.contains("estts_pref")) {
@@ -110,6 +111,7 @@ public class Preference extends PreferenceActivity implements
 			return 0;
 		}
 
+		@SuppressWarnings("deprecation")
 		protected void onPostExecute(Integer result) {
 			if (result != 0) {
 				return;
@@ -144,6 +146,7 @@ public class Preference extends PreferenceActivity implements
 			return 0;
 		}
 
+		@SuppressWarnings({ "deprecation" })
 		protected void onPostExecute(Integer result) {
 			if (result != 0) {
 				return;
@@ -178,6 +181,7 @@ public class Preference extends PreferenceActivity implements
 			return 0;
 		}
 
+		@SuppressWarnings("deprecation")
 		protected void onPostExecute(Integer result) {
 			if (result != 0) {
 				return;

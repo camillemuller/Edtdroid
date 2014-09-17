@@ -10,13 +10,11 @@ import org.geeckodev.edtdroid.fragments.DayFragment;
 import org.geeckodev.edtdroid.model.Group;
 import org.geeckodev.edtdroid.model.Lesson;
 import org.geeckodev.edtdroid.model.Model;
-
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -24,7 +22,6 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
@@ -40,20 +37,11 @@ import android.widget.Toast;
 
 public class Main extends FragmentActivity {
 	private static int PAGE_NBR = 5;
-
 	private EdtDroid fd;
 	private Spinner sGroup;
 	private ViewPager vpDays;
 	private DaysPagerAdapter paDays;
 	private BroadcastReceiver br = null;
-	
-	
-	   private NotificationManager myNotificationManager;
-	   private int notificationIdOne = 111;
-	   private int notificationIdTwo = 112;
-	   private int numMessagesOne = 0;
-	   private int numMessagesTwo = 0;
-
 	protected int count = 60;
 
 	
@@ -267,6 +255,7 @@ public class Main extends FragmentActivity {
 	
 	
 	
+	@SuppressWarnings("deprecation")
 	private void Notification(String notificationTitle, String notificationMessage) {
 	    NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 	    android.app.Notification notification = new android.app.Notification(R.drawable.ic_launcher, notificationTitle,
