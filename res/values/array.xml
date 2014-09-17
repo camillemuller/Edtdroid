@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="listEstts"></string-array>
+    <string-array name="listEsttsValues"></string-array>
+    <string-array name="listDepts"></string-array>
+    <string-array name="listDeptsValues"></string-array>
+    <string-array name="listGroups"></string-array>
+    <string-array name="listGroupsValues"></string-array>
+    <string-array name="listSubgroup">
+        <item>Tout afficher</item>
+        <item>Afficher groupe 1</item>
+        <item>Afficher groupe 2</item>
+    </string-array>
+    <string-array name="listSubgroupValues">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+</resources>

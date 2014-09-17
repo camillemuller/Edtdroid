@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+<PreferenceCategory
+        android:title="Préférences">
+        <ListPreference
+            android:title="Établissement"
+            android:key="estts_pref"
+            android:defaultValue="none"
+            android:enabled="false"
+            android:entries="@array/listEstts"
+            android:entryValues="@array/listEsttsValues" />
+        <ListPreference
+            android:title="Département"
+            android:key="depts_pref"
+            android:defaultValue="none"
+            android:enabled="false"
+            android:entries="@array/listDepts"
+            android:entryValues="@array/listDeptsValues" />
+        <ListPreference
+            android:title="Groupe par défaut"
+            android:key="groups_pref"
+            android:defaultValue="none"
+            android:enabled="false"
+            android:entries="@array/listGroups"
+            android:entryValues="@array/listGroupsValues" />
+</PreferenceCategory>
+    
+</PreferenceScreen>
