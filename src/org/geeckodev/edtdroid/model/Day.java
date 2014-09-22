@@ -40,10 +40,10 @@ public class Day implements Iterable<Lesson> {
 	}
 
 	public int getNumber() {
-		
+
 		return Integer.parseInt(this.name.substring(8,10));
 	}
-	
+
 	public int size() {
 		return this.lessons.size();
 	}
@@ -51,7 +51,7 @@ public class Day implements Iterable<Lesson> {
 	public void clear() {
 		this.lessons.clear();
 	}
-	
+
 	/**
 	 * A finirs -> Implemant des lesson
 	 * @param olds
@@ -61,18 +61,18 @@ public class Day implements Iterable<Lesson> {
 	static public List<Lesson> compare( List<Day> olds, List<Day> news)
 	{
 		List<Lesson> dayChanged = new ArrayList<Lesson>();
-		
-		
-		
+
+
+
 		for(Day unAncien: olds)
 		{
 			for(Day unNv : news)
 			{
-				if(unAncien.getName() == unAncien.getName())
+				if(unAncien.getName() == unAncien.getName()) 
 				{
-					for( Lesson unAncienne  : unAncien.getLessons())
+					for( Lesson unAncienne  : unAncien.getLessons()) //4
 					{
-						for(Lesson laNouvelle : unNv.getLessons())
+						for(Lesson laNouvelle : unNv.getLessons()) // 4 
 						{
 							if( laNouvelle.getBegin() == unAncienne.getBegin() && laNouvelle.getEnd() == unAncienne.getEnd()  )
 							{
@@ -80,23 +80,29 @@ public class Day implements Iterable<Lesson> {
 								if(laNouvelle.getName() != unAncienne.getName())
 								{
 									dayChanged.add(laNouvelle);
+									
 								}
 								if(laNouvelle.getProf() != unAncienne.getProf())
 								{
 									dayChanged.add(laNouvelle);
 								}
 								
+								if(laNouvelle.getClassroom() != unAncienne.getClassroom())
+								{
+									dayChanged.add(laNouvelle);
+								}
+
 							}
 						}
-						
+
 					}
-					
+
 				}
 			}
 		}
-		
+
 		return dayChanged;
-		
+
 	}
 
 }
