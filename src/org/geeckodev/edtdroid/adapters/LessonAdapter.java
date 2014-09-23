@@ -8,7 +8,10 @@ import org.geeckodev.edtdroid.R;
 import org.geeckodev.edtdroid.application.EdtDroid;
 import org.geeckodev.edtdroid.model.Day;
 import org.geeckodev.edtdroid.model.Lesson;
+import org.geeckodev.edtdroid.widget.AfficheEDT;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -16,12 +19,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 
 public class LessonAdapter extends BaseAdapter {
 	EdtDroid fd;
 	Day day;
 	LayoutInflater inflater;
+	 TextView unT;
 
 	public LessonAdapter(Context context, Day day) {
 		this.fd = (EdtDroid) context.getApplicationContext();
@@ -69,6 +74,8 @@ public class LessonAdapter extends BaseAdapter {
 	@Override
 	public View getView(int i, View convertView, ViewGroup parent) {
 		ViewHolder holder;
+		
+		
 
 		if (convertView == null) {
 			holder = new ViewHolder();
@@ -79,9 +86,16 @@ public class LessonAdapter extends BaseAdapter {
 			holder.tvBegin = (TextView) convertView.findViewById(R.id.tvBegin);
 			holder.tvEnd = (TextView) convertView.findViewById(R.id.tvEnd);
 			holder.tvProfRoom = (TextView) convertView.findViewById(R.id.tvProfRoom);
+			View view = View.inflate(this.fd, R.layout.widget, null);
+
+			this.unT = (TextView) view.findViewById(R.id.hello_world_widget);
+
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
+			View view = View.inflate(this.fd, R.layout.widget, null);
+			this.unT = (TextView) view.findViewById(R.id.hello_world_widget);
+
 		}
 
 		Lesson lesson = (Lesson)getItem(i);
@@ -91,12 +105,28 @@ public class LessonAdapter extends BaseAdapter {
 
 		holder.tvName.setTextColor(Color.rgb(0x00, 0x99, 0xCC));
 		
+		Context context = this.fd;
+		AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+		RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
+		ComponentName thisWidget = new ComponentName(context, AfficheEDT.class);
+
+		
 		if (this.day.getNumber() == curr_day) {
 			if (lesson.isFinished())
 				holder.tvName.setTextColor(Color.GRAY);
 			else if (lesson.isOngoing()) {
 				holder.tvName.setTextColor(Color.BLUE);
+				remoteViews.setTextViewText(  R.id.hello_world_widget,  "Cours : "+lesson.getName()+
+						"\n"
+						+"Salle : "+lesson.getClassroom()
+						+"\n"
+						+lesson.getBegin()
+						+"\n"
+						+lesson.getEnd()
+						);
+				appWidgetManager.updateAppWidget(thisWidget, remoteViews);
 			}
+
 		}
 
 		/* Set text */

@@ -31,6 +31,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -43,6 +44,8 @@ public class Main extends FragmentActivity {
 	private DaysPagerAdapter paDays;
 	private BroadcastReceiver br = null;
 	protected int count = 60;
+	
+
 
 	
 
@@ -111,10 +114,12 @@ public class Main extends FragmentActivity {
 					if(count == 0)
 					{
 					Main.this.paDays.update();
+					
 					count=60;
 					}
 					else
 					{
+						
 						Log.i("info","Etat du compteur"+count);
 						count--;
 					}

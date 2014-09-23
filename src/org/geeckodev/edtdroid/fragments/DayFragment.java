@@ -4,13 +4,18 @@ import org.geeckodev.edtdroid.R;
 import org.geeckodev.edtdroid.adapters.LessonAdapter;
 import org.geeckodev.edtdroid.application.EdtDroid;
 import org.geeckodev.edtdroid.model.Day;
+import org.geeckodev.edtdroid.widget.AfficheEDT;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 
 public class DayFragment extends Fragment {
@@ -55,7 +60,11 @@ public class DayFragment extends Fragment {
 
 		ListView lvLesson = (ListView) view.findViewById(R.id.lvLesson);
 		TextView tvToday = (TextView) view.findViewById(R.id.tvToday);
+		
 
+
+		
+		
 		
 		tvToday.setText("Cours du " + day.getName());
 		
