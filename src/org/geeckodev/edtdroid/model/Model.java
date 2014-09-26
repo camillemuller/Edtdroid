@@ -127,6 +127,7 @@ public class Model {
 		try {
 		
 			List<Day> oldDays = new ArrayList<Day>(this.days);
+			
 			this.dao.findDays(this.selectedEstt, this.selectedDept,
 					this.selectedGroup, this.days);
 			

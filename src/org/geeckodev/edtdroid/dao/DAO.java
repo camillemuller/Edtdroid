@@ -174,12 +174,14 @@ public class DAO {
 
 		days.clear();
 
-		String format = "yyyy-MM"; 
+		String format = "yyyy-MM-dd"; 
 
 		java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat( format ); 
 		java.util.Date date = new java.util.Date(); 
 
-
+		java.util.Date date2 = new java.util.Date(date.getTime()+86400000*7); 
+		
+		
 
 		ResultSet rs = null;
 		try {
@@ -189,9 +191,9 @@ public class DAO {
 
 			String sqlQuery;
 
-			sqlQuery=	"SELECT * FROM   Cours, Groupe	 WHERE " +
-					"DATEDEBUT like '%"+formater.format( date )+"%'" 
-					+" AND (Groupe.name like  '%"+dept+"'" // Cours commun 
+			sqlQuery=	"SELECT * FROM   Cours, Groupe	 WHERE " //+
+					//"SUBSTRING(DATEDEBUT,0,10) BETWEEN '"+formater.format( date )+"' AND '" +formater.format( date2 )+"'"
+					+"  (Groupe.name like  '%"+dept+"'" // Cours commun 
 					+" OR Groupe.name like  '%"+group+"%')" // Cours en groupe 
 					+" AND Cours.id_groupe = Groupe.id_groupe " +
 					" ORDER BY DATEDEBUT ASC";
