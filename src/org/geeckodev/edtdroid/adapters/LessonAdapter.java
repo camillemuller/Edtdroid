@@ -138,7 +138,7 @@ public class LessonAdapter extends BaseAdapter {
 		holder.tvName.setText(lesson.getName());
 		holder.tvBegin.setText(lesson.getBegin());
 		holder.tvEnd.setText(lesson.getEnd());
-		holder.tvProfRoom.setText(lesson.getClassroom()+"||"+lesson.getProf());
+		holder.tvProfRoom.setText(lesson.getClassroom()+"___"+lesson.getProf());
 
 		return convertView;
 	}

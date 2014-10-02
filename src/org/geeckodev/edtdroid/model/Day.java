@@ -68,38 +68,39 @@ public class Day implements Iterable<Lesson> {
 		{
 			for(Day unNv : news)
 			{
-				if(unAncien.getName() == unAncien.getName()) 
+				if(unAncien.getName().equals(unAncien.getName()))  // Si même jour 
 				{
-					for( Lesson unAncienne  : unAncien.getLessons()) //4
+					for( Lesson unAncienne  : unAncien.getLessons()) 
 					{
-						for(Lesson laNouvelle : unNv.getLessons()) // 4 
+						for(Lesson laNouvelle : unNv.getLessons()) 
 						{
-							if( laNouvelle.getBegin() == unAncienne.getBegin() && laNouvelle.getEnd() == unAncienne.getEnd()  )
+							if( laNouvelle.getBegin().equals( unAncienne.getBegin()) // On cherche les cours correspondant
+									&& laNouvelle.getEnd().equals(unAncienne.getEnd())  )
 							{
-								//TODO A REVOIR
-								if(laNouvelle.getName() != unAncienne.getName())
+
+								if(!laNouvelle.getName().equals(unAncienne.getName()))
 								{
 									dayChanged.add(laNouvelle);
-									
+
 								}
-								if(laNouvelle.getProf() != unAncienne.getProf())
+								if(!laNouvelle.getProf().equals(unAncienne.getProf()))
 								{
 									dayChanged.add(laNouvelle);
 								}
-								
-								if(laNouvelle.getClassroom() != unAncienne.getClassroom())
+
+								if(!laNouvelle.getClassroom().equals(unAncienne.getClassroom()))
 								{
 									dayChanged.add(laNouvelle);
 								}
 
 							}
 						}
-
 					}
-
 				}
+
 			}
 		}
+
 
 		return dayChanged;
 

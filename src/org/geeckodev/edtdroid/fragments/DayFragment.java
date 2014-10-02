@@ -1,21 +1,21 @@
 package org.geeckodev.edtdroid.fragments;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.geeckodev.edtdroid.R;
 import org.geeckodev.edtdroid.adapters.LessonAdapter;
 import org.geeckodev.edtdroid.application.EdtDroid;
 import org.geeckodev.edtdroid.model.Day;
-import org.geeckodev.edtdroid.widget.AfficheEDT;
 
-import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.RemoteViews;
 import android.widget.TextView;
 
 public class DayFragment extends Fragment {
@@ -65,9 +65,18 @@ public class DayFragment extends Fragment {
 
 
 		
+		SimpleDateFormat formater = new SimpleDateFormat("EEEE, d MMM");
+		Date date = null;
 		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			 date = dateFormat.parse(day.getName());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		tvToday.setText("Cours du " + day.getName());
+		tvToday.setText("Cours du " + formater.format(date));
 		
 		LessonAdapter lessonAdapter = new LessonAdapter(getActivity(), day);
 		lvLesson.setAdapter(lessonAdapter);

@@ -110,6 +110,15 @@ public class DAO {
 
 
 			depts.add(new Department("DI_5A_S9","DI_5A_S09"));
+			depts.add(new Department("DI_5A_S10","DI_5A_S10"));
+
+			
+			depts.add(new Department("DI_4A_S7","DI_4A_S7"));
+			depts.add(new Department("DI_4A_S8","DI_4A_S8"));
+			
+			depts.add(new Department("DI_3A_S5","DI_3A_S5"));
+			depts.add(new Department("DI_3A_S6","DI_3A_S6"));
+
 
 		}catch(SQLException e)
 		{
@@ -141,11 +150,34 @@ public class DAO {
 					groups.add(new Group(rs.getString("name"), rs.getString("name")));
 			}
 			
-			if(dept.contains("DI_5A"))
+			if(dept.contains("DI_5A_S09"))
 			{
 			groups.add(new Group("DI_5A_G1","DI_5A_G1"));
 			groups.add(new Group("DI_5A_G2","DI_5A_G2"));
 			}
+			if(dept.contains("DI_5A_S10"))
+			{
+			groups.add(new Group("DI_5A Option L&O","DI_5A Option L&O"));
+			groups.add(new Group("DI_5A Option RV","DI_5A Option RV"));
+			groups.add(new Group("DI_5A Option S&H","DI_5A Option S&H"));
+			groups.add(new Group("DI_5A Option WM","DI_5A Option WM"));
+
+
+			}
+			
+			if(dept.contains("DI_4A"))
+			{
+			groups.add(new Group("DI_4A_G1","DI_4A_G1"));
+			groups.add(new Group("DI_4A_G2","DI_4A_G2"));
+			groups.add(new Group("DI_4A_G3","DI_4A_G3"));
+			}
+			if(dept.contains("DI_3A"))
+			{
+				groups.add(new Group("DI_3A_G1","DI_3A_G1"));
+				groups.add(new Group("DI_3A_G2","DI_3A_G2"));
+			}
+			
+			
 
 		}catch(SQLException e)
 		{
@@ -174,14 +206,15 @@ public class DAO {
 
 		days.clear();
 
-		String format = "yyyy-MM-dd"; 
+		//TODO modification de la récuperation des dates par between
+	/*	String format = "yyyy-MM-dd"; 
 
 		java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat( format ); 
 		java.util.Date date = new java.util.Date(); 
 
 		java.util.Date date2 = new java.util.Date(date.getTime()+86400000*7); 
 		
-		
+	 */		
 
 		ResultSet rs = null;
 		try {

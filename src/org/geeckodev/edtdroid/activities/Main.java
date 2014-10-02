@@ -31,13 +31,12 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
 
 public class Main extends FragmentActivity {
-	private static int PAGE_NBR = 5;
+	private static int PAGE_NBR = 10;
 	private EdtDroid fd;
 	private Spinner sGroup;
 	private ViewPager vpDays;
@@ -230,15 +229,18 @@ public class Main extends FragmentActivity {
 		protected Integer doInBackground(Model... model) {
 			try {
 				 List<Lesson> lessonChanged = model[0].buildDays();
-				
-				if(lessonChanged != null && lessonChanged.size() > 0)
+			//TODO 	
+		/*		if(lessonChanged != null && lessonChanged.size() > 0)
 				{
+				
 					 Notification("Consulter votre emploi du temps", "Modification sur l'EDT");
 					
-				}
+				}*/
+				 
 			} catch (IOException e) {
 				return -1;
 			}
+
 
 			return 0;
 		}
