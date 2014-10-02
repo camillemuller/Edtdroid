@@ -122,13 +122,15 @@ public class DAO {
 
 		}catch(SQLException e)
 		{
-			e.printStackTrace();
+			throw new IOException();
 		} catch (IllegalAccessException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IOException();
+
 		} catch(NullPointerException e)
 		{
-			e.printStackTrace();
+			throw new IOException();
+
 		}
 
 
@@ -181,13 +183,16 @@ public class DAO {
 
 		}catch(SQLException e)
 		{
-			e.printStackTrace();
+			throw new IOException();
+
 		} catch (IllegalAccessException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IOException();
+
 		} catch(NullPointerException e)
 		{
-			e.printStackTrace();	
+			throw new IOException();
+	
 		}
 
 
@@ -280,10 +285,12 @@ public class DAO {
 			//return oldDays;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IOException();
+
 		} catch (IllegalAccessException e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			throw new IOException();
+
 		}
 
 
