@@ -1,29 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
-    
-<PreferenceCategory
-        android:title="Préférences">
+
+    <PreferenceCategory android:title="Choix du planning" >
         <ListPreference
-            android:title="Établissement"
-            android:key="estts_pref"
             android:defaultValue="none"
             android:enabled="false"
             android:entries="@array/listEstts"
-            android:entryValues="@array/listEsttsValues" />
+            android:entryValues="@array/listEsttsValues"
+            android:key="estts_pref"
+            android:title="Établissement" />
         <ListPreference
-            android:title="Département"
-            android:key="depts_pref"
             android:defaultValue="none"
             android:enabled="false"
             android:entries="@array/listDepts"
-            android:entryValues="@array/listDeptsValues" />
+            android:entryValues="@array/listDeptsValues"
+            android:key="depts_pref"
+            android:title="Département" />
         <ListPreference
-            android:title="Groupe par défaut"
-            android:key="groups_pref"
             android:defaultValue="none"
             android:enabled="false"
             android:entries="@array/listGroups"
-            android:entryValues="@array/listGroupsValues" />
-</PreferenceCategory>
-    
+            android:entryValues="@array/listGroupsValues"
+            android:key="groups_pref"
+            android:title="Groupe par défaut" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Modification affichage" >
+        <EditTextPreference
+            android:defaultValue="10"
+            android:key="nBJ"
+            android:maxLength="2"
+            android:numeric="integer"
+            android:title="Nombre de jours affichés" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Autres" >
+        <Preference
+            android:key="AboutBt"
+            android:title="A propos" />
+    </PreferenceCategory>
+
+    <Preference
+        android:background="#041A37"
+        android:key="button"
+        android:title="@string/returnString" />
+
+    <PreferenceCategory>
+    </PreferenceCategory>
+
 </PreferenceScreen>

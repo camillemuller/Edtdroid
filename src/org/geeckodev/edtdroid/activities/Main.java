@@ -36,7 +36,7 @@ import android.widget.Toast;
 
 
 public class Main extends FragmentActivity {
-	private static int PAGE_NBR = 10;
+	private  int PAGE_NBR ;
 	private EdtDroid fd;
 	private Spinner sGroup;
 	private ViewPager vpDays;
@@ -62,8 +62,11 @@ public class Main extends FragmentActivity {
 		this.vpDays = (ViewPager) findViewById(R.id.vpDays);
 
 		/* Create the ViewPager */
-
+		SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(this);
 		
+
+			PAGE_NBR = Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(this).getString("nBJ", "3"));
+				
 		this.paDays = new DaysPagerAdapter(super.getSupportFragmentManager());
 		for (int i = 0; i < PAGE_NBR; i++) {
 			Bundle b = new Bundle();
@@ -130,7 +133,7 @@ public class Main extends FragmentActivity {
 
 		if (PreferenceManager.getDefaultSharedPreferences(this)
 				.getString("groups_pref", "none").equals("none")) {
-			startActivity(new Intent(Main.this, Preference.class));
+			startActivity(new Intent(Main.this, Pref.class));
 		}
 	}
 
@@ -140,6 +143,74 @@ public class Main extends FragmentActivity {
 
 		/* Try to fetch the group list */
 
+		// Regen nb pages si pref changed
+		if(	PAGE_NBR != Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(this).getString("nBJ", "3")))
+		{
+			PAGE_NBR = Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(this).getString("nBJ", "3"));
+			this.paDays = new DaysPagerAdapter(super.getSupportFragmentManager());
+			for (int i = 0; i < PAGE_NBR; i++) {
+				Bundle b = new Bundle();
+				b.putInt("pos", i);
+
+				DayFragment frag = (DayFragment) Fragment.instantiate(this,
+						DayFragment.class.getName());
+				frag.setArguments(b);
+				this.paDays.addItem(frag);
+
+			}
+			this.vpDays.setAdapter(this.paDays);
+
+			/* Create the spinner */
+
+			sGroup.setOnItemSelectedListener(new OnItemSelectedListener() {
+				@Override
+				public void onItemSelected(AdapterView<?> parent, View view,
+						int pos, long id) {
+					
+					
+					try
+					{
+					fd.model.selectGroup(fd.model.getGroups().get(pos).getValue());
+					new SyncDaysTask().execute(fd.model);
+					}catch(IndexOutOfBoundsException e)
+					{
+						e.printStackTrace();
+					}
+					
+					
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> arg0) {
+				}
+			});
+
+			/* Update the view every minute */
+			
+
+			this.br = new BroadcastReceiver() {
+				@Override
+				public void onReceive(Context ctx, Intent intent) {
+					if (intent.getAction().compareTo(Intent.ACTION_TIME_TICK) == 0) {
+						
+						if(count == 0)
+						{
+						Main.this.paDays.update();
+						
+						count=60;
+						}
+						else
+						{
+							
+							Log.i("info","Etat du compteur"+count);
+							count--;
+						}
+					}
+				}
+			};
+			
+		}
+		
 		if (!PreferenceManager.getDefaultSharedPreferences(this)
 				.getString("groups_pref", "none").equals("none")) {
 			new SyncGroupsTask().execute(fd.model);
@@ -170,7 +241,7 @@ public class Main extends FragmentActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == R.id.menu_search)
-			startActivity(new Intent(Main.this, Preference.class));
+			startActivity(new Intent(Main.this, Pref.class));
 		return true;
 	}
 

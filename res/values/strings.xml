@@ -9,5 +9,7 @@
     <string name="hello">Hello World, HelloWorldWidgetActivity!</string>
 	<string name="app_name2">EdtDroid Widget</string>
 	<string name="hello_world_widget">RELANCER APPLI EDTDROID</string>
+	
+	<string name="returnString" >Retour vers la page principale</string>
     
 </resources>

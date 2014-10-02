@@ -10,16 +10,22 @@ import org.geeckodev.edtdroid.model.Establishment;
 import org.geeckodev.edtdroid.model.Group;
 import org.geeckodev.edtdroid.model.Model;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.EditTextPreference;
 import android.preference.ListPreference;
+import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.text.InputFilter;
 import android.widget.Toast;
 
-public class Preference extends PreferenceActivity implements
-		SharedPreferences.OnSharedPreferenceChangeListener {
+public class Pref extends PreferenceActivity implements
+SharedPreferences.OnSharedPreferenceChangeListener {
 	private EdtDroid fd;
 
 	private void setEntries(CharSequence pref, CharSequence[] entries,
@@ -60,7 +66,11 @@ public class Preference extends PreferenceActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+
+
 		fd = (EdtDroid) this.getApplication();
+
+
 
 		/* Inflate from XML */
 		this.addPreferencesFromResource(R.xml.preferences);
@@ -73,7 +83,75 @@ public class Preference extends PreferenceActivity implements
 
 		/* Preference change listener */
 		PreferenceManager.getDefaultSharedPreferences(this)
-				.registerOnSharedPreferenceChangeListener(this);
+		.registerOnSharedPreferenceChangeListener(this);
+
+
+		Preference button = (Preference)findPreference("button");
+
+
+		button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				// TODO Auto-generated method stub
+				finish();
+				return true;
+			}
+		});
+
+
+		Preference aboutBt = (Preference)findPreference("AboutBt");
+
+
+		aboutBt.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+
+			@Override
+			public boolean onPreferenceClick(Preference preference) {
+				// TODO Auto-generated method stub
+				affiche();
+				return true;
+			}
+		});
+		
+		final EditTextPreference ETP = (EditTextPreference)findPreference("nBJ");
+
+		final int minPort = 1;
+		final int maxPort = 15;
+		
+		ETP.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+			
+			@Override
+		    public boolean onPreferenceChange(Preference preference, Object newValue) {
+		        int val = Integer.parseInt(newValue.toString());
+		            if ((val > minPort) && (val < maxPort)) {
+
+		                return true;
+		            }
+		            else {
+		                // invalid you can show invalid message
+		                Toast.makeText(getApplicationContext(), "Valeur max 15 jours, ancienne valeur gardé" , Toast.LENGTH_LONG).show();
+		                return false;
+		            }
+		        }
+		    });
+
+	}
+
+
+
+	public void affiche()
+	{
+		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+		alertDialog.setTitle("A propos");
+		alertDialog.setMessage("Application soutenu par Muller Camille" +
+				", issue de l'adaptation de FormaDroid(GeckoDev).\n"
+				+"Contact : muller_camille@icloud.com");
+		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				// here you can add functions
+			}
+		});
+		alertDialog.show();
 	}
 
 	@SuppressWarnings("deprecation")
@@ -93,10 +171,14 @@ public class Preference extends PreferenceActivity implements
 
 			/* Return to previous Activity */
 			this.finish();
-			
-		} else if (key.contains("subgroup_pref")) {
-			fd.model.setSubgroup(sp.getString("subgroup_pref", "0"));
+
+		} 
+		if(key.contains("nBJ"))
+		{
+			/* Return to previous Activity */
+			this.finish();
 		}
+
 	}
 
 	private class SyncEsttsTask extends AsyncTask<Model, Void, Integer> {
@@ -128,7 +210,7 @@ public class Preference extends PreferenceActivity implements
 				i++;
 			}
 
-			Preference.this.setEntries("estts_pref", entries, values);
+			Pref.this.setEntries("estts_pref", entries, values);
 
 			((ListPreference) findPreference("estts_pref")).setEnabled(true);
 		}
@@ -163,7 +245,7 @@ public class Preference extends PreferenceActivity implements
 				i++;
 			}
 
-			Preference.this.setEntries("depts_pref", entries, values);
+			Pref.this.setEntries("depts_pref", entries, values);
 
 			((ListPreference) findPreference("depts_pref")).setEnabled(true);
 		}
@@ -198,7 +280,7 @@ public class Preference extends PreferenceActivity implements
 				i++;
 			}
 
-			Preference.this.setEntries("groups_pref", entries, values);
+			Pref.this.setEntries("groups_pref", entries, values);
 
 			((ListPreference) findPreference("groups_pref")).setEnabled(true);
 		}

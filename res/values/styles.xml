@@ -1,3 +1,9 @@
 <resources>
     <style name="AppTheme" parent="android:Theme.Light" />
+    
+    
+    <style name="PrefCatStyle" parent="android:Theme.Light">
+    <item name="android:textColor">@color/text_green</item>
+    <item name="android:background">@color/pref_back</item>
+	</style>
 </resources>

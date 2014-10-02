@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <drawable name="blue">#336699</drawable>
+  
+     <color name="ab_grey">#adadad</color> <!--  #adadad--> 
+    <color name="text_green">#000000</color>
+    <color name="pref_back">#FFFFFF</color>
 </resources>

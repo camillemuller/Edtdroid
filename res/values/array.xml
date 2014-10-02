@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="listEstts"></string-array>
+    <string-array name="nBJ"></string-array>
     <string-array name="listEsttsValues"></string-array>
     <string-array name="listDepts"></string-array>
     <string-array name="listDeptsValues"></string-array>
