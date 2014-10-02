@@ -146,7 +146,7 @@ SharedPreferences.OnSharedPreferenceChangeListener {
 		alertDialog.setMessage("Application soutenu par Muller Camille" +
 				", issue de l'adaptation de FormaDroid(GeckoDev).\n"
 				+"Contact : muller_camille@icloud.com");
-		alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+		alertDialog.setButton("Fermer", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 				// here you can add functions
 			}

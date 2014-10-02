@@ -301,12 +301,12 @@ public class Main extends FragmentActivity {
 			try {
 				 List<Lesson> lessonChanged = model[0].buildDays();
 			//TODO 	
-		/*		if(lessonChanged != null && lessonChanged.size() > 0)
+			if(lessonChanged != null && lessonChanged.size() > 0)
 				{
 				
 					 Notification("Consulter votre emploi du temps", "Modification sur l'EDT");
 					
-				}*/
+				}
 				 
 			} catch (IOException e) {
 				return -1;

@@ -28,7 +28,7 @@ public class DAO {
 		this.model = model;
 	}
 
-	public void connectBDD () throws  IllegalAccessException
+	public void connectBDD () throws  IllegalAccessException, IOException
 	{
 		if (conexionMySQL == null)    	
 		{
@@ -44,14 +44,17 @@ public class DAO {
 				} 
 				catch (ClassNotFoundException and) 
 				{
-					and.printStackTrace();
+					throw new IOException();
+
 				} 
 				catch (SQLException And) 
 				{
-					And.printStackTrace();
+					throw new IOException();
+
 				} catch (InstantiationException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					throw new IOException();
+
 				}
 			}
 		}

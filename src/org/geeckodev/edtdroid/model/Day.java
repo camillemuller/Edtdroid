@@ -68,7 +68,7 @@ public class Day implements Iterable<Lesson> {
 		{
 			for(Day unNv : news)
 			{
-				if(unAncien.getName().equals(unAncien.getName()))  // Si même jour 
+				if(unAncien.getName().equals(unNv.getName()))  // Si même jour 
 				{
 					for( Lesson unAncienne  : unAncien.getLessons()) 
 					{
