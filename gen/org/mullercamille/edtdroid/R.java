@@ -35,9 +35,10 @@ public final class R {
     }
     public static final class id {
         public static final int LinearLayout1=0x7f0a0000;
-        public static final int hello_world_widget=0x7f0a000c;
+        public static final int empty_view=0x7f0a000d;
         public static final int lvLesson=0x7f0a0005;
-        public static final int menu_search=0x7f0a000d;
+        public static final int lvlessonWidget=0x7f0a000c;
+        public static final int menu_search=0x7f0a000e;
         public static final int sGroup=0x7f0a0002;
         public static final int text1=0x7f0a000b;
         public static final int tvBegin=0x7f0a0008;

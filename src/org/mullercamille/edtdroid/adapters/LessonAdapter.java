@@ -86,51 +86,27 @@ public class LessonAdapter extends BaseAdapter {
 			holder.tvBegin = (TextView) convertView.findViewById(R.id.tvBegin);
 			holder.tvEnd = (TextView) convertView.findViewById(R.id.tvEnd);
 			holder.tvProfRoom = (TextView) convertView.findViewById(R.id.tvProfRoom);
-			View view = View.inflate(this.fd, R.layout.widget, null);
 
-			this.unT = (TextView) view.findViewById(R.id.hello_world_widget);
 
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
-			View view = View.inflate(this.fd, R.layout.widget, null);
-			this.unT = (TextView) view.findViewById(R.id.hello_world_widget);
 
 		}
-
 		Lesson lesson = (Lesson)getItem(i);
 		int curr_day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-
 		/* Change the color depending on the current day and hour */
-
-		holder.tvName.setTextColor(Color.rgb(0x00, 0x99, 0xCC));
-		
-		Context context = this.fd;
-		AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-		RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
-		ComponentName thisWidget = new ComponentName(context, AfficheEDT.class);
-
-		
+		holder.tvName.setTextColor(Color.rgb(0x00, 0x99, 0xCC));	
 		if (this.day.getNumber() == curr_day) {
 			if (lesson.isFinished())
 				holder.tvName.setTextColor(Color.GRAY);
 			else if (lesson.isOngoing()) {
 				holder.tvName.setTextColor(Color.BLUE);
-				remoteViews.setTextViewText(  R.id.hello_world_widget,  "Cours : "+lesson.getName()+
-						"\n"
-						+"Salle : "+lesson.getClassroom()
-						+"\n"
-						+lesson.getBegin()
-						+"\n"
-						+lesson.getEnd()
-						);
-				appWidgetManager.updateAppWidget(thisWidget, remoteViews);
+				
 			}
 
 		}
-
 		/* Set text */
-
 		if (lesson.getSubgroup() != "") {
 			holder.tvSubgroup.setTypeface(null, Typeface.ITALIC);
 			holder.tvSubgroup.setText(lesson.getSubgroup() + "  ");

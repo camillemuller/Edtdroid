@@ -62,9 +62,6 @@ public class DayFragment extends Fragment {
 		ListView lvLesson = (ListView) view.findViewById(R.id.lvLesson);
 		TextView tvToday = (TextView) view.findViewById(R.id.tvToday);
 		
-
-
-		
 		SimpleDateFormat formater = new SimpleDateFormat("EEEE, d MMM");
 		Date date = null;
 		

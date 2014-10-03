@@ -1,11 +1,19 @@
 package org.mullercamille.edtdroid.model;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 
 public class Day implements Iterable<Lesson> {
+	
+	//Solution de gitan
+	//public static Day leJourEnCours;
+	
 	private List<Lesson> lessons;
 	public List<Lesson> getLessons() {
 		return lessons;
@@ -20,6 +28,25 @@ public class Day implements Iterable<Lesson> {
 	public Day(String name) {
 		this.lessons = new ArrayList<Lesson>();
 		this.name = name;
+	/*	
+		//Si le jour est le jour d'aujourd'hui
+		SimpleDateFormat formater = new SimpleDateFormat("EEEE, d MMM");
+		Date date = null;
+		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			 date = dateFormat.parse(this.name);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if( formater.format(date).equals(  formater.format(new Date())   ) )
+		{
+		 leJourEnCours = this;
+		}		
+		*/
+		
 	}
 
 	public void addLesson(Lesson lesson) {
