@@ -21,7 +21,6 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
-import android.text.InputFilter;
 import android.widget.Toast;
 
 public class Pref extends PreferenceActivity implements
@@ -139,6 +138,7 @@ SharedPreferences.OnSharedPreferenceChangeListener {
 
 
 
+	@SuppressWarnings("deprecation")
 	public void affiche()
 	{
 		AlertDialog alertDialog = new AlertDialog.Builder(this).create();

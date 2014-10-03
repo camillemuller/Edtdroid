@@ -44,10 +44,10 @@ public class Main extends FragmentActivity {
 	private DaysPagerAdapter paDays;
 	private BroadcastReceiver br = null;
 	protected int count = 60;
-	
 
 
-	
+
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -55,19 +55,18 @@ public class Main extends FragmentActivity {
 		fd = (EdtDroid) this.getApplication();
 
 		/* Construct the view */
-		
-		
+
+
 
 		setContentView(R.layout.activity_main);
 		this.sGroup = (Spinner) findViewById(R.id.sGroup);
 		this.vpDays = (ViewPager) findViewById(R.id.vpDays);
 
 		/* Create the ViewPager */
-		SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(this);
-		
 
-			PAGE_NBR = Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(this).getString("nBJ", "3"));
-				
+
+		PAGE_NBR = Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(this).getString("nBJ", "3"));
+
 		this.paDays = new DaysPagerAdapter(super.getSupportFragmentManager());
 		for (int i = 0; i < PAGE_NBR; i++) {
 			Bundle b = new Bundle();
@@ -87,18 +86,18 @@ public class Main extends FragmentActivity {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int pos, long id) {
-				
-				
+
+
 				try
 				{
-				fd.model.selectGroup(fd.model.getGroups().get(pos).getValue());
-				new SyncDaysTask().execute(fd.model);
+					fd.model.selectGroup(fd.model.getGroups().get(pos).getValue());
+					new SyncDaysTask().execute(fd.model);
 				}catch(IndexOutOfBoundsException e)
 				{
 					e.printStackTrace();
 				}
-				
-				
+
+
 			}
 
 			@Override
@@ -107,22 +106,22 @@ public class Main extends FragmentActivity {
 		});
 
 		/* Update the view every minute */
-		
+
 
 		this.br = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context ctx, Intent intent) {
 				if (intent.getAction().compareTo(Intent.ACTION_TIME_TICK) == 0) {
-					
+
 					if(count == 0)
 					{
-					Main.this.paDays.update();
-					
-					count=60;
+						Main.this.paDays.update();
+
+						count=60;
 					}
 					else
 					{
-						
+
 						Log.i("info","Etat du compteur"+count);
 						count--;
 					}
@@ -167,18 +166,18 @@ public class Main extends FragmentActivity {
 				@Override
 				public void onItemSelected(AdapterView<?> parent, View view,
 						int pos, long id) {
-					
-					
+
+
 					try
 					{
-					fd.model.selectGroup(fd.model.getGroups().get(pos).getValue());
-					new SyncDaysTask().execute(fd.model);
+						fd.model.selectGroup(fd.model.getGroups().get(pos).getValue());
+						new SyncDaysTask().execute(fd.model);
 					}catch(IndexOutOfBoundsException e)
 					{
 						e.printStackTrace();
 					}
-					
-					
+
+
 				}
 
 				@Override
@@ -187,31 +186,31 @@ public class Main extends FragmentActivity {
 			});
 
 			/* Update the view every minute */
-			
+
 
 			this.br = new BroadcastReceiver() {
 				@Override
 				public void onReceive(Context ctx, Intent intent) {
 					if (intent.getAction().compareTo(Intent.ACTION_TIME_TICK) == 0) {
-						
+
 						if(count == 0)
 						{
-						Main.this.paDays.update();
-						
-						count=60;
+							Main.this.paDays.update();
+
+							count=60;
 						}
 						else
 						{
-							
+
 							Log.i("info","Etat du compteur"+count);
 							count--;
 						}
 					}
 				}
 			};
-			
+
 		}
-		
+
 		if (!PreferenceManager.getDefaultSharedPreferences(this)
 				.getString("groups_pref", "none").equals("none")) {
 			new SyncGroupsTask().execute(fd.model);
@@ -231,8 +230,8 @@ public class Main extends FragmentActivity {
 		//unregisterReceiver(this.br);
 	}
 
-	
-	
+
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_main, menu);
@@ -300,15 +299,15 @@ public class Main extends FragmentActivity {
 		@Override
 		protected Integer doInBackground(Model... model) {
 			try {
-				 List<Lesson> lessonChanged = model[0].buildDays();
-			//TODO 	
-			if(lessonChanged != null && lessonChanged.size() > 0)
+				List<Lesson> lessonChanged = model[0].buildDays();
+				//TODO 	
+				if(lessonChanged != null && lessonChanged.size() > 0)
 				{
-				
-					 Notification("Consulter votre emploi du temps", "Modification sur l'EDT");
-					
+
+					Notification("Consulter votre emploi du temps", "Modification sur l'EDT");
+
 				}
-				 
+
 			} catch (IOException e) {
 				return -1;
 			}
@@ -317,9 +316,9 @@ public class Main extends FragmentActivity {
 			return 0;
 		}
 
-		
-		
-		
+
+
+
 		protected void onPostExecute(Integer result) {
 			if (result != 0) {
 				Toast.makeText(Main.this, "Erreur de synchronisation",
@@ -330,20 +329,20 @@ public class Main extends FragmentActivity {
 			paDays.update();
 		}
 	}
-	
-	
-	
-	
+
+
+
+
 	@SuppressWarnings("deprecation")
 	private void Notification(String notificationTitle, String notificationMessage) {
-	    NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-	    android.app.Notification notification = new android.app.Notification(R.drawable.ic_launcher, notificationTitle,
-	    System.currentTimeMillis());
+		NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+		android.app.Notification notification = new android.app.Notification(R.drawable.ic_launcher, notificationTitle,
+				System.currentTimeMillis());
 
-	    Intent notificationIntent = new Intent(this, Main.class);
-	    PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
-	    notification.setLatestEventInfo(Main.this, notificationTitle, notificationMessage, pendingIntent);
-	    notificationManager.notify(10001, notification);
+		Intent notificationIntent = new Intent(this, Main.class);
+		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+		notification.setLatestEventInfo(Main.this, notificationTitle, notificationMessage, pendingIntent);
+		notificationManager.notify(10001, notification);
 	}
-	
+
 }

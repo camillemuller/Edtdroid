@@ -1,16 +1,19 @@
 package org.mullercamille.edtdroid.widget;
 
+
+import android.appwidget.AppWidgetProvider;
+/*
 import java.util.Arrays;
 
 import org.mullercamille.edtdroid.R;
-
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
-import android.appwidget.AppWidgetProvider;
+import android.app.PendingIntent;
+
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.RemoteViews;
+*/
 
 public class AfficheEDT extends AppWidgetProvider {
 	
