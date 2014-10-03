@@ -35,6 +35,7 @@
         <CheckBoxPreference
 	android:key="pref_notif"
 	android:title="Notifications"
+	android:defaultValue="true"
 	android:summary="Autorisation des notifications en cas modification" />
     </PreferenceCategory>
     <PreferenceCategory android:title="Autres" >
