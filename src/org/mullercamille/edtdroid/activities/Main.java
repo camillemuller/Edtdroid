@@ -1,12 +1,17 @@
 package org.mullercamille.edtdroid.activities;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.mullercamille.edtdroid.R;
 import org.mullercamille.edtdroid.adapters.DaysPagerAdapter;
 import org.mullercamille.edtdroid.application.EdtDroid;
 import org.mullercamille.edtdroid.fragments.DayFragment;
+import org.mullercamille.edtdroid.model.Day;
 import org.mullercamille.edtdroid.model.Group;
 import org.mullercamille.edtdroid.model.Lesson;
 import org.mullercamille.edtdroid.model.Model;
@@ -299,12 +304,34 @@ public class Main extends FragmentActivity {
 		@Override
 		protected Integer doInBackground(Model... model) {
 			try {
-				List<Lesson> lessonChanged = model[0].buildDays();
+				List<Day> desModifiers = model[0].buildDays();
 				//TODO 	
-				if(lessonChanged != null && lessonChanged.size() > 0)
+				if(desModifiers != null && desModifiers.size() > 0)
 				{
 
-					Notification("Consulter votre emploi du temps", "Modification sur l'EDT");
+					for(Day unJM : desModifiers)
+					{
+						for(Lesson uneLM : unJM.getLessons())
+						{
+							SimpleDateFormat formater = new SimpleDateFormat("EEEE, d MMM");
+							Date date = null;
+							
+							DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+							try {
+								 date = dateFormat.parse(unJM.getName());
+							} catch (ParseException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							
+							
+							Notification("Modif:"+uneLM.getName(), 
+										 formater.format(date)
+										 +uneLM.getBegin()+"\n"
+										 +uneLM.getEnd()+"\n");
+						}
+					}
+					
 
 				}
 

@@ -121,9 +121,9 @@ public class Model {
 		this.pending = false;
 	}
 
-	public List<Lesson> buildDays() throws IOException {
+	public List<Day> buildDays() throws IOException {
 		this.pending = true;
-		List<Lesson> desLessons = null;
+		List<Day> desLessons = null;
 
 		try {
 		

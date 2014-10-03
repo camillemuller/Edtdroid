@@ -58,9 +58,9 @@ public class Day implements Iterable<Lesson> {
 	 * @param news
 	 * @return
 	 */
-	static public List<Lesson> compare( List<Day> olds, List<Day> news)
+	static public List<Day> compare( List<Day> olds, List<Day> news)
 	{
-		List<Lesson> dayChanged = new ArrayList<Lesson>();
+		List<Day> dayChanged = new ArrayList<Day>();
 
 
 
@@ -80,17 +80,23 @@ public class Day implements Iterable<Lesson> {
 
 								if(!laNouvelle.getName().equals(unAncienne.getName()))
 								{
-									dayChanged.add(laNouvelle);
+									Day unDay = new Day(unNv.getName());
+									unDay.addLesson(laNouvelle);
+									dayChanged.add(unDay);
 
 								}
 								if(!laNouvelle.getProf().equals(unAncienne.getProf()))
 								{
-									dayChanged.add(laNouvelle);
+									Day unDay = new Day(unNv.getName());
+									unDay.addLesson(laNouvelle);
+									dayChanged.add(unDay);
 								}
 
 								if(!laNouvelle.getClassroom().equals(unAncienne.getClassroom()))
 								{
-									dayChanged.add(laNouvelle);
+									Day unDay = new Day(unNv.getName());
+									unDay.addLesson(laNouvelle);
+									dayChanged.add(unDay);
 								}
 
 							}
