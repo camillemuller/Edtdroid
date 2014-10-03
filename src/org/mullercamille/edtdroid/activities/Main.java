@@ -29,7 +29,6 @@ import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,7 +47,7 @@ public class Main extends FragmentActivity {
 	private ViewPager vpDays;
 	private DaysPagerAdapter paDays;
 	private BroadcastReceiver br = null;
-	protected int count = 60;
+	protected int count = 20;
 
 
 
@@ -122,12 +121,11 @@ public class Main extends FragmentActivity {
 					{
 						Main.this.paDays.update();
 
-						count=60;
+						count=20;
 					}
 					else
 					{
 
-						Log.i("info","Etat du compteur"+count);
 						count--;
 					}
 				}
@@ -202,12 +200,11 @@ public class Main extends FragmentActivity {
 						{
 							Main.this.paDays.update();
 
-							count=60;
+							count=20;
 						}
 						else
 						{
 
-							Log.i("info","Etat du compteur"+count);
 							count--;
 						}
 					}
@@ -325,10 +322,10 @@ public class Main extends FragmentActivity {
 							}
 							
 							
-							Notification("Modif:"+uneLM.getName(), 
+							Notification(uneLM.getName(), 
 										 formater.format(date)
-										 +uneLM.getBegin()+"\n"
-										 +uneLM.getEnd()+"\n");
+										 +uneLM.getBegin()
+										 +" "+uneLM.getEnd());
 						}
 					}
 					
@@ -362,6 +359,11 @@ public class Main extends FragmentActivity {
 
 	@SuppressWarnings("deprecation")
 	private void Notification(String notificationTitle, String notificationMessage) {
+		
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+
+		if (settings.getBoolean("pref_notif", true)) {
+		
 		NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		android.app.Notification notification = new android.app.Notification(R.drawable.ic_launcher, notificationTitle,
 				System.currentTimeMillis());
@@ -370,6 +372,8 @@ public class Main extends FragmentActivity {
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 		notification.setLatestEventInfo(Main.this, notificationTitle, notificationMessage, pendingIntent);
 		notificationManager.notify(10001, notification);
+		
+		}
 	}
 
 }

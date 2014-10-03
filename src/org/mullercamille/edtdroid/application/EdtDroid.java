@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 
 public class EdtDroid extends Application {
 	public Model model;
+	
 
 	@Override
 	public void onCreate() {
