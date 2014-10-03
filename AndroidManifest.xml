@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.geeckodev.edtdroid"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    package="org.mullercamille.edtdroid"
+    android:versionCode="3"
+    android:versionName="1.1.1" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -11,13 +11,13 @@
         android:targetSdkVersion="17" />
 
     <application
-        android:name="org.geeckodev.edtdroid.application.EdtDroid"
+        android:name="org.mullercamille.edtdroid.application.EdtDroid"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
        
         <activity
-            android:name=".activities.Main"
+            android:name="org.mullercamille.edtdroid.activities.Main"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,13 +26,13 @@
             </intent-filter>
         </activity>
         
-        <activity android:name=".activities.Pref" >
+        <activity android:name="org.mullercamille.edtdroid.activities.Pref" >
         </activity> 
         
         
         
         
-		<receiver android:name=".widget.AfficheEDT"
+		<receiver android:name="org.mullercamille.edtdroid.widget.AfficheEDT"
 			android:label="@string/app_name2">
 			<intent-filter>
 				<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
