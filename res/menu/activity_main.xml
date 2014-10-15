@@ -2,6 +2,4 @@
    <item
         android:id="@+id/menu_search"
         android:title="Préférences"/>
-
-
 </menu>

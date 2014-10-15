@@ -13,5 +13,6 @@
 	<string name="returnString" >Retour vers la page principale</string>
 	
 	<string name="message">message</string>
+	<string name="title">Préférences</string>
     
 </resources>

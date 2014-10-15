@@ -4,25 +4,5 @@
    		 android:orientation="vertical"
    		 android:layout_gravity="center"
    		 android:layout_height="wrap_content">
-
-
-
-    <ListView
-        android:id="@+id/lvlessonWidget"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
-    
-        <!-- Empty view is show if list items are empty -->
-    <TextView
-        android:id="@+id/empty_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text=" "
-        android:textColor="#ffffff"
-        android:textSize="20sp"
-        android:visibility="gone" />
-
  
 </LinearLayout>
