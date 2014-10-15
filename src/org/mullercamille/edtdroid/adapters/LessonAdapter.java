@@ -8,10 +8,7 @@ import org.mullercamille.edtdroid.R;
 import org.mullercamille.edtdroid.application.EdtDroid;
 import org.mullercamille.edtdroid.model.Day;
 import org.mullercamille.edtdroid.model.Lesson;
-import org.mullercamille.edtdroid.widget.AfficheEDT;
-
-import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -19,9 +16,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.RemoteViews;
 import android.widget.TextView;
 
+@SuppressLint("InflateParams")
 public class LessonAdapter extends BaseAdapter {
 	EdtDroid fd;
 	Day day;

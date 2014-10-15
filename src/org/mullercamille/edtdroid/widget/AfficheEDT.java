@@ -1,7 +1,7 @@
 package org.mullercamille.edtdroid.widget;
 
 
-import android.annotation.SuppressLint;
+//import android.annotation.SuppressLint;
 import android.appwidget.AppWidgetProvider;
 /*
 import java.util.Arrays;

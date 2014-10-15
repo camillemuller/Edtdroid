@@ -116,22 +116,5 @@ public class Lesson {
 
 	}
 	
-	public boolean theNext() {
-		String[] b = this.begin.split(":");
-		int begin_hour = Integer.parseInt(b[0]);
-		int begin_minute = Integer.parseInt(b[1]);
 
-		String[] e = this.end.split(":");
-		int end_hour = Integer.parseInt(e[0]);
-		int end_minute = Integer.parseInt(e[1]);
-
-		int[] values = getCurrentMinuteHour();
-		int current_hour = values[0];
-		int current_minute = values[1];
-
-		// Il est 13h30
-		// Prochain 14h30
-		return ((current_hour-1 >= begin_hour)  );
-
-	}
 }

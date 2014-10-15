@@ -20,6 +20,7 @@ import org.mullercamille.edtdroid.model.Model;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.annotation.SuppressLint;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -30,7 +31,6 @@ import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,12 +38,12 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
 
 
+@SuppressLint("SimpleDateFormat")
 public class Main extends FragmentActivity {
 	private  int PAGE_NBR ;
 	private EdtDroid fd;
@@ -142,10 +142,10 @@ public class Main extends FragmentActivity {
 				.getString("groups_pref", "none").equals("none")) {
 			startActivity(new Intent(Main.this, Pref.class));
 		}
-		
-		
 
-     
+
+
+
 	}
 
 	@Override
@@ -306,6 +306,7 @@ public class Main extends FragmentActivity {
 	}
 
 	public class SyncDaysTask extends AsyncTask<Model, Void, Integer> {
+		@SuppressLint("SimpleDateFormat")
 		@Override
 		protected Integer doInBackground(Model... model) {
 			try {
@@ -314,32 +315,39 @@ public class Main extends FragmentActivity {
 				if(desModifiers != null && desModifiers.size() > 0)
 				{
 
-					for(Day unJM : desModifiers)
+
+					// Si un seul cours de modifiers
+					if(desModifiers.size() ==1 && desModifiers.get(0).getLessons().size() ==1)
 					{
-						for(Lesson uneLM : unJM.getLessons())
-						{
-							SimpleDateFormat formater = new SimpleDateFormat("EEEE, d MMM");
-							Date date = null;
-							
-							DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-							try {
-								 date = dateFormat.parse(unJM.getName());
-							} catch (ParseException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-							
-							
-							Notification(uneLM.getName(), 
-										 formater.format(date)
-										 +uneLM.getBegin()
-										 +" "+uneLM.getEnd());
+						Day unJM =  desModifiers.get(0);
+						Lesson uneLM= unJM.getLessons().get(0);
+						SimpleDateFormat formater = new SimpleDateFormat("EEEE, d MMM");
+						Date date = null;
+
+						DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+						try {
+							date = dateFormat.parse(unJM.getName());
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
 						}
+
+						Notification(uneLM.getName(), 
+								formater.format(date)
+								+uneLM.getBegin()
+								+" "+uneLM.getEnd());
 					}
-					
 
+
+					else{
+						int count = 0;
+						for(Day unJM : desModifiers)
+						{
+							count += unJM.getLessons().size();
+						}
+						Notification("Emploi du temps mise à jour","Vous avez "+count+" cours modifiés");
+					}
 				}
-
 			} catch (IOException e) {
 				return -1;
 			}
@@ -347,9 +355,6 @@ public class Main extends FragmentActivity {
 
 			return 0;
 		}
-
-
-
 
 		protected void onPostExecute(Integer result) {
 			if (result != 0) {
@@ -362,25 +367,20 @@ public class Main extends FragmentActivity {
 		}
 	}
 
-
-
-
 	@SuppressWarnings("deprecation")
 	private void Notification(String notificationTitle, String notificationMessage) {
-		
+
 		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
 
 		if (settings.getBoolean("pref_notif", true)) {
-		
-		NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-		android.app.Notification notification = new android.app.Notification(R.drawable.ic_launcher, notificationTitle,
-				System.currentTimeMillis());
+			NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+			android.app.Notification notification = new android.app.Notification(R.drawable.ic_launcher, notificationTitle,
+					System.currentTimeMillis());
+			Intent notificationIntent = new Intent(this, Main.class);
+			PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
+			notification.setLatestEventInfo(Main.this, notificationTitle, notificationMessage, pendingIntent);
+			notificationManager.notify(10001, notification);
 
-		Intent notificationIntent = new Intent(this, Main.class);
-		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
-		notification.setLatestEventInfo(Main.this, notificationTitle, notificationMessage, pendingIntent);
-		notificationManager.notify(10001, notification);
-		
 		}
 	}
 
