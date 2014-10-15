@@ -228,7 +228,6 @@ public class Main extends FragmentActivity {
 
 		if (!PreferenceManager.getDefaultSharedPreferences(this)
 				.getString("groups_pref", "none").equals("none")) {
-			this.groupeChanged = true;
 			new SyncGroupsTask().execute(fd.model);
 		}
 
@@ -349,7 +348,7 @@ public class Main extends FragmentActivity {
 						}
 						Notification("Emploi du temps mise à jour","Vous avez "+count+" cours modifiés");
 					}
-				}else if(groupeChanged = true)
+				}else if(groupeChanged = true) // Le groupe à été changé
 				{
 					groupeChanged = false;
 				}
