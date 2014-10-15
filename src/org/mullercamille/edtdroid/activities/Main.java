@@ -52,6 +52,7 @@ public class Main extends FragmentActivity {
 	private DaysPagerAdapter paDays;
 	private BroadcastReceiver br = null;
 	protected int count = 20;
+	private boolean groupeChanged = false;
 
 
 
@@ -99,6 +100,7 @@ public class Main extends FragmentActivity {
 				try
 				{
 					fd.model.selectGroup(fd.model.getGroups().get(pos).getValue());
+					groupeChanged = true;
 					new SyncDaysTask().execute(fd.model);
 				}catch(IndexOutOfBoundsException e)
 				{
@@ -140,7 +142,9 @@ public class Main extends FragmentActivity {
 
 		if (PreferenceManager.getDefaultSharedPreferences(this)
 				.getString("groups_pref", "none").equals("none")) {
+			
 			startActivity(new Intent(Main.this, Pref.class));
+			
 		}
 
 
@@ -224,6 +228,7 @@ public class Main extends FragmentActivity {
 
 		if (!PreferenceManager.getDefaultSharedPreferences(this)
 				.getString("groups_pref", "none").equals("none")) {
+			this.groupeChanged = true;
 			new SyncGroupsTask().execute(fd.model);
 		}
 
@@ -238,7 +243,6 @@ public class Main extends FragmentActivity {
 		super.onPause();
 
 		/* Unregister the broadcast receiver */
-
 		unregisterReceiver(this.br);
 	}
 
@@ -314,7 +318,7 @@ public class Main extends FragmentActivity {
 			try {
 				List<Day> desModifiers = model[0].buildDays();
 				//TODO 	
-				if(desModifiers != null && desModifiers.size() > 0)
+				if(desModifiers != null && desModifiers.size() > 0 && groupeChanged == false)
 				{
 					// Si un seul cours de modifiers
 					if(desModifiers.size() ==1 && desModifiers.get(0).getLessons().size() ==1)
@@ -345,6 +349,9 @@ public class Main extends FragmentActivity {
 						}
 						Notification("Emploi du temps mise à jour","Vous avez "+count+" cours modifiés");
 					}
+				}else if(groupeChanged = true)
+				{
+					groupeChanged = false;
 				}
 			} catch (IOException e) {
 				return -1;
