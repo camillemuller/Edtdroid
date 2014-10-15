@@ -143,7 +143,7 @@ SharedPreferences.OnSharedPreferenceChangeListener {
 	{
 		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 		alertDialog.setTitle("A propos");
-		alertDialog.setMessage("Application soutenu par Muller Camille" +
+		alertDialog.setMessage("Application soutenue par Muller Camille" +
 				", issue de l'adaptation de FormaDroid(Par GeeckoDev).\n"
 				+"Contact : muller_camille@icloud.com");
 		alertDialog.setButton("Fermer", new DialogInterface.OnClickListener() {

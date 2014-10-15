@@ -4,14 +4,10 @@
     <string name="menu_settings">Settings</string>
     <string name="selected_group">Groupe</string>
     <string name="update">MAJ</string>
-
-    
     <string name="hello">Hello World, HelloWorldWidgetActivity!</string>
 	<string name="app_name2">EdtDroid Widget</string>
 	<string name="hello_world_widget">RELANCER APPLI EDTDROID</string>
-	
 	<string name="returnString" >Retour vers la page principale</string>
-	
 	<string name="message">message</string>
 	<string name="title">Préférences</string>
     

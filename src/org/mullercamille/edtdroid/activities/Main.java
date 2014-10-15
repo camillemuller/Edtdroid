@@ -152,6 +152,7 @@ public class Main extends FragmentActivity {
 	public void onResume() {
 		super.onResume();
 
+
 		/* Try to fetch the group list */
 
 		// Regen nb pages si pref changed
@@ -226,8 +227,9 @@ public class Main extends FragmentActivity {
 			new SyncGroupsTask().execute(fd.model);
 		}
 
-		/* Register the broadcast receiver */
 
+		
+		/* Register the broadcast receiver */
 		registerReceiver(this.br, new IntentFilter(Intent.ACTION_TIME_TICK));
 	}
 
@@ -237,7 +239,7 @@ public class Main extends FragmentActivity {
 
 		/* Unregister the broadcast receiver */
 
-		//unregisterReceiver(this.br);
+		unregisterReceiver(this.br);
 	}
 
 
@@ -314,8 +316,6 @@ public class Main extends FragmentActivity {
 				//TODO 	
 				if(desModifiers != null && desModifiers.size() > 0)
 				{
-
-
 					// Si un seul cours de modifiers
 					if(desModifiers.size() ==1 && desModifiers.get(0).getLessons().size() ==1)
 					{
@@ -337,8 +337,6 @@ public class Main extends FragmentActivity {
 								+uneLM.getBegin()
 								+" "+uneLM.getEnd());
 					}
-
-
 					else{
 						int count = 0;
 						for(Day unJM : desModifiers)

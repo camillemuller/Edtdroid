@@ -9,10 +9,10 @@ import java.util.List;
 
 
 public class Day implements Iterable<Lesson> {
-	
+
 	//Solution de gitan
 	//public static Day leJourEnCours;
-	
+
 	private List<Lesson> lessons;
 	public List<Lesson> getLessons() {
 		return lessons;
@@ -27,11 +27,11 @@ public class Day implements Iterable<Lesson> {
 	public Day(String name) {
 		this.lessons = new ArrayList<Lesson>();
 		this.name = name;
-	/*	
+		/*	
 		//Si le jour est le jour d'aujourd'hui
 		SimpleDateFormat formater = new SimpleDateFormat("EEEE, d MMM");
 		Date date = null;
-		
+
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		try {
 			 date = dateFormat.parse(this.name);
@@ -39,13 +39,13 @@ public class Day implements Iterable<Lesson> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		if( formater.format(date).equals(  formater.format(new Date())   ) )
 		{
 		 leJourEnCours = this;
 		}		
-		*/
-		
+		 */
+
 	}
 
 	public void addLesson(Lesson lesson) {
@@ -89,7 +89,7 @@ public class Day implements Iterable<Lesson> {
 		List<Day> dayChanged = new ArrayList<Day>();
 
 		//List<String> gasList = // create list with duplicates...
-			//	Set<String>  uniqueGas = new HashSet<String>(gasList);
+		//	Set<String>  uniqueGas = new HashSet<String>(gasList);
 		//System.out.println("Unique gas count: " + uniqueGas.size());
 
 		for(Day unAncien: olds)
@@ -98,40 +98,53 @@ public class Day implements Iterable<Lesson> {
 			{
 				if(unAncien.getName().equals(unNv.getName()))  // Si même jour 
 				{
+					int unNvCours =1;
+					Day unDay;
+					Lesson laNouvelleBis = null;
 					for( Lesson laNouvelle  : unNv.getLessons()) 
 					{
+						laNouvelleBis = laNouvelle;
 						for(Lesson unAncienne : unAncien.getLessons()) 
 						{
-							
 							// Manque le cas d'un nouveau cours rajouté 
 							// bug si changement de groupe
 							if( laNouvelle.getBegin().equals( unAncienne.getBegin()) // On cherche les cours correspondant
 									&& laNouvelle.getEnd().equals(unAncienne.getEnd())  )
 							{
-
 								if(!laNouvelle.getName().equals(unAncienne.getName()))
 								{
-									Day unDay = new Day(unNv.getName());
+									unNvCours=0;
+									 unDay = new Day(unNv.getName());
 									unDay.addLesson(laNouvelle);
 									dayChanged.add(unDay);
 
 								}
 								if(!laNouvelle.getProf().equals(unAncienne.getProf()))
 								{
-									Day unDay = new Day(unNv.getName());
+									unNvCours=0;
+									 unDay = new Day(unNv.getName());
 									unDay.addLesson(laNouvelle);
 									dayChanged.add(unDay);
 								}
 
 								if(!laNouvelle.getClassroom().equals(unAncienne.getClassroom()))
 								{
-									Day unDay = new Day(unNv.getName());
+									unNvCours=0;
+									 unDay = new Day(unNv.getName());
 									unDay.addLesson(laNouvelle);
 									dayChanged.add(unDay);
 								}
 
 							}
 						}
+					}
+					//beta test
+					if( laNouvelleBis != null && unNvCours ==0)
+					{
+						unNvCours=0;
+						unDay = new Day(unNv.getName());
+						unDay.addLesson(laNouvelleBis);
+						dayChanged.add(unDay);
 					}
 				}
 
