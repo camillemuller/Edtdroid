@@ -5,8 +5,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+
 
 
 public class Day implements Iterable<Lesson> {
@@ -89,7 +92,9 @@ public class Day implements Iterable<Lesson> {
 	{
 		List<Day> dayChanged = new ArrayList<Day>();
 
-
+		//List<String> gasList = // create list with duplicates...
+			//	Set<String>  uniqueGas = new HashSet<String>(gasList);
+		//System.out.println("Unique gas count: " + uniqueGas.size());
 
 		for(Day unAncien: olds)
 		{
@@ -97,10 +102,13 @@ public class Day implements Iterable<Lesson> {
 			{
 				if(unAncien.getName().equals(unNv.getName()))  // Si même jour 
 				{
-					for( Lesson unAncienne  : unAncien.getLessons()) 
+					for( Lesson laNouvelle  : unNv.getLessons()) 
 					{
-						for(Lesson laNouvelle : unNv.getLessons()) 
+						for(Lesson unAncienne : unAncien.getLessons()) 
 						{
+							
+							// Manque le cas d'un nouveau cours rajouté 
+							// bug si changement de groupe
 							if( laNouvelle.getBegin().equals( unAncienne.getBegin()) // On cherche les cours correspondant
 									&& laNouvelle.getEnd().equals(unAncienne.getEnd())  )
 							{

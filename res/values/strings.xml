@@ -11,5 +11,7 @@
 	<string name="hello_world_widget">RELANCER APPLI EDTDROID</string>
 	
 	<string name="returnString" >Retour vers la page principale</string>
+	
+	<string name="message">message</string>
     
 </resources>

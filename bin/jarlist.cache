@@ -1,3 +1,5 @@
 # cache for current jar dependency. DO NOT EDIT.
 # format is <lastModified> <length> <SHA-1> <path>
 # Encoding is UTF-8
+1412861415000 632030 23023656ba91dc12e963cf7d5682db5d2aba6262 /Users/camillemuller/Documents/workspace/Edtdroid/libs/google-play-services.jar
+1412861260000 632030 23023656ba91dc12e963cf7d5682db5d2aba6262 /Users/camillemuller/Documents/adt-bundle/sdk/extras/google/google_play_services_froyo/libproject/google-play-services_lib/libs/google-play-services.jar

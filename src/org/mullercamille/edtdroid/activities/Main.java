@@ -16,6 +16,7 @@ import org.mullercamille.edtdroid.model.Group;
 import org.mullercamille.edtdroid.model.Lesson;
 import org.mullercamille.edtdroid.model.Model;
 
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -29,6 +30,7 @@ import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,7 +38,9 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+
 
 
 
@@ -138,6 +142,10 @@ public class Main extends FragmentActivity {
 				.getString("groups_pref", "none").equals("none")) {
 			startActivity(new Intent(Main.this, Pref.class));
 		}
+		
+		
+
+     
 	}
 
 	@Override
