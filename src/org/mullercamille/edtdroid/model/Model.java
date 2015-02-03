@@ -19,6 +19,8 @@ public class Model {
 	private String subgroup;
 	private DAO dao;
 	private boolean pending;
+	
+	
 
 	public Model() {
 		this.estts = new ArrayList<Establishment>();

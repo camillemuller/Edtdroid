@@ -10,6 +10,7 @@ import org.mullercamille.edtdroid.adapters.LessonAdapter;
 import org.mullercamille.edtdroid.application.EdtDroid;
 import org.mullercamille.edtdroid.model.Day;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -46,6 +47,7 @@ public class DayFragment extends Fragment {
 		update(view);
 	}
 
+	@SuppressLint("SimpleDateFormat")
 	private void update(View view) {
 		
 		/* Model is being updated, abort */

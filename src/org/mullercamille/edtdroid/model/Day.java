@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import android.util.Log;
+
 
 
 public class Day implements Iterable<Lesson> {
@@ -27,25 +29,6 @@ public class Day implements Iterable<Lesson> {
 	public Day(String name) {
 		this.lessons = new ArrayList<Lesson>();
 		this.name = name;
-		/*	
-		//Si le jour est le jour d'aujourd'hui
-		SimpleDateFormat formater = new SimpleDateFormat("EEEE, d MMM");
-		Date date = null;
-
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		try {
-			 date = dateFormat.parse(this.name);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		if( formater.format(date).equals(  formater.format(new Date())   ) )
-		{
-		 leJourEnCours = this;
-		}		
-		 */
-
 	}
 
 	public void addLesson(Lesson lesson) {
@@ -78,8 +61,108 @@ public class Day implements Iterable<Lesson> {
 		this.lessons.clear();
 	}
 
+
+
+
+	static public Day compareDay(Day unNv,Day unAncien)
+	{
+		Day unDay = null;
+		for( Lesson laNouvelle  : unNv.getLessons()) 
+		{
+			for(Lesson unAncienne : unAncien.getLessons()) 
+			{
+				if( laNouvelle.getBegin().equals( unAncienne.getBegin()) // On cherche les cours correspondant
+						&& laNouvelle.getEnd().equals(unAncienne.getEnd())  )
+				{
+					if(!laNouvelle.getName().equals(unAncienne.getName()))
+					{
+						if(unDay == null)
+						unDay = new Day(unNv.getName());
+						unDay.addLesson(laNouvelle);
+
+					}
+					else if(!laNouvelle.getProf().equals(unAncienne.getProf()))
+					{
+						
+						if(unDay == null)
+						unDay = new Day(unNv.getName());
+						unDay.addLesson(laNouvelle);
+					}
+
+					else if(!laNouvelle.getClassroom().equals(unAncienne.getClassroom()))
+					{
+						if(unDay == null)
+						unDay = new Day(unNv.getName());
+						unDay.addLesson(laNouvelle);
+					}
+
+				}
+			}
+		}
+		return unDay;
+	}
+
+	static public Day compareDayLessLesson(Day unNv,Day unAncien)
+	{
+		Day unDay = null;
+		List<Lesson> lessonParsed = new ArrayList<Lesson>();
+		for( Lesson laNouvelle  : unNv.getLessons()) 
+		{
+			for(Lesson unAncienne : unAncien.getLessons()) 
+			{
+				if( laNouvelle.getBegin().equals( unAncienne.getBegin()) // On cherche les cours correspondant
+						&& laNouvelle.getEnd().equals(unAncienne.getEnd())  )
+				{
+					lessonParsed.add(unAncienne);
+
+					if(!laNouvelle.getName().equals(unAncienne.getName()))
+					{
+						if(unDay == null)
+						unDay = new Day(unNv.getName());
+						unDay.addLesson(laNouvelle);
+
+					}
+					else if(!laNouvelle.getProf().equals(unAncienne.getProf()))
+					{
+						if(unDay == null)
+						unDay = new Day(unNv.getName());
+						unDay.addLesson(laNouvelle);
+					}
+
+					else if(!laNouvelle.getClassroom().equals(unAncienne.getClassroom()))
+					{
+						if(unDay == null)
+						unDay = new Day(unNv.getName());
+						unDay.addLesson(laNouvelle);
+					}
+
+				}
+			}
+		}
+		
+		
+		
+		for(Lesson uneOld : unAncien.getLessons())
+		{
+			if(lessonParsed.contains(uneOld))
+			{	
+			}else
+			{
+				if(unDay == null)
+				unDay = new Day(uneOld.getName());
+				unDay.addLesson(uneOld);
+			}
+		}
+
+		return unDay;
+	}
+
+
+
+
+
 	/**
-	 * A finirs -> Implemant des lesson
+	 * 
 	 * @param olds
 	 * @param news
 	 * @return
@@ -87,73 +170,44 @@ public class Day implements Iterable<Lesson> {
 	static public List<Day> compare( List<Day> olds, List<Day> news)
 	{
 		List<Day> dayChanged = new ArrayList<Day>();
-
-		//List<String> gasList = // create list with duplicates...
-		//	Set<String>  uniqueGas = new HashSet<String>(gasList);
-		//System.out.println("Unique gas count: " + uniqueGas.size());
-
 		for(Day unAncien: olds)
 		{
 			for(Day unNv : news)
 			{
 				if(unAncien.getName().equals(unNv.getName()))  // Si même jour 
 				{
-					int unNvCours =1;
-					Day unDay;
-					Lesson laNouvelleBis = null;
-					for( Lesson laNouvelle  : unNv.getLessons()) 
+					// Cours en plus 
+					if( olds.size() > news.size()) // Cours en moins
 					{
-						laNouvelleBis = laNouvelle;
-						for(Lesson unAncienne : unAncien.getLessons()) 
+						Day tempDay = compareDayLessLesson(unNv,unAncien);
+						if(tempDay != null) // Si il y a des cours de changées
 						{
-							// Manque le cas d'un nouveau cours rajouté 
-							// bug si changement de groupe
-							if( laNouvelle.getBegin().equals( unAncienne.getBegin()) // On cherche les cours correspondant
-									&& laNouvelle.getEnd().equals(unAncienne.getEnd())  )
-							{
-								if(!laNouvelle.getName().equals(unAncienne.getName()))
-								{
-									unNvCours=0;
-									 unDay = new Day(unNv.getName());
-									unDay.addLesson(laNouvelle);
-									dayChanged.add(unDay);
-
-								}
-								if(!laNouvelle.getProf().equals(unAncienne.getProf()))
-								{
-									unNvCours=0;
-									 unDay = new Day(unNv.getName());
-									unDay.addLesson(laNouvelle);
-									dayChanged.add(unDay);
-								}
-
-								if(!laNouvelle.getClassroom().equals(unAncienne.getClassroom()))
-								{
-									unNvCours=0;
-									 unDay = new Day(unNv.getName());
-									unDay.addLesson(laNouvelle);
-									dayChanged.add(unDay);
-								}
-
-							}
+							dayChanged.add(tempDay);
 						}
+
 					}
-					//beta test
-					if( laNouvelleBis != null && unNvCours ==0)
+					else if( olds.size() < news.size() ) // Cours en plus
 					{
-						unNvCours=0;
-						unDay = new Day(unNv.getName());
-						unDay.addLesson(laNouvelleBis);
-						dayChanged.add(unDay);
+
 					}
+					else // On doit vérifier les changements de cours
+					{
+						Day tempDay = compareDay(unNv,unAncien);
+						if(tempDay != null) // Si il y a des cours de changées
+						{
+							dayChanged.add(tempDay);
+						}
+
+					}
+
+
+
 				}
 
 			}
 		}
-
-
 		return dayChanged;
-
 	}
+
 
 }

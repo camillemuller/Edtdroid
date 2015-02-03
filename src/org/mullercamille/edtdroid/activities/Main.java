@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import org.mullercamille.edtdroid.R;
 import org.mullercamille.edtdroid.adapters.DaysPagerAdapter;
 import org.mullercamille.edtdroid.application.EdtDroid;
@@ -15,7 +16,6 @@ import org.mullercamille.edtdroid.model.Day;
 import org.mullercamille.edtdroid.model.Group;
 import org.mullercamille.edtdroid.model.Lesson;
 import org.mullercamille.edtdroid.model.Model;
-
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -31,10 +31,15 @@ import android.content.SharedPreferences;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -51,7 +56,7 @@ public class Main extends FragmentActivity {
 	private ViewPager vpDays;
 	private DaysPagerAdapter paDays;
 	private BroadcastReceiver br = null;
-	protected int count = 20;
+	protected int count = 1;
 	private boolean groupeChanged = false;
 
 
@@ -89,8 +94,23 @@ public class Main extends FragmentActivity {
 		}
 		this.vpDays.setAdapter(this.paDays);
 
-		/* Create the spinner */
+		
 
+		sGroup.setOnTouchListener(new OnTouchListener() {
+			
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				// TODO Auto-generated method stub
+				
+				
+				Log.d("DEBUG","Je passe ici est c'est normal");
+				groupeChanged = true;
+				return false;
+			}
+		});
+		
+		
+		/* Create the spinner */
 		sGroup.setOnItemSelectedListener(new OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view,
@@ -99,8 +119,8 @@ public class Main extends FragmentActivity {
 
 				try
 				{
+
 					fd.model.selectGroup(fd.model.getGroups().get(pos).getValue());
-					groupeChanged = true;
 					new SyncDaysTask().execute(fd.model);
 				}catch(IndexOutOfBoundsException e)
 				{
@@ -116,8 +136,6 @@ public class Main extends FragmentActivity {
 		});
 
 		/* Update the view every minute */
-
-
 		this.br = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context ctx, Intent intent) {
@@ -126,8 +144,8 @@ public class Main extends FragmentActivity {
 					if(count == 0)
 					{
 						Main.this.paDays.update();
-
-						count=20;
+						new SyncDaysTask().execute(fd.model);
+						count=1;
 					}
 					else
 					{
@@ -142,7 +160,6 @@ public class Main extends FragmentActivity {
 
 		if (PreferenceManager.getDefaultSharedPreferences(this)
 				.getString("groups_pref", "none").equals("none")) {
-			
 			startActivity(new Intent(Main.this, Pref.class));
 			
 		}
@@ -212,7 +229,7 @@ public class Main extends FragmentActivity {
 						if(count == 0)
 						{
 							Main.this.paDays.update();
-
+							new SyncDaysTask().execute(fd.model);
 							count=20;
 						}
 						else
@@ -315,7 +332,19 @@ public class Main extends FragmentActivity {
 		@Override
 		protected Integer doInBackground(Model... model) {
 			try {
+					Log.i("debug", "maj");
+				
 				List<Day> desModifiers = model[0].buildDays();
+				
+				
+				Log.d("DEBUG","Valeur groupeChanged :"+groupeChanged);
+				
+				if(desModifiers != null)
+				Log.d("DEBUG","Valeur taille desModifiers :"+desModifiers.size());
+				else
+				Log.d("DEBUG","Valeur  desModifiers null");
+
+
 				//TODO 	
 				if(desModifiers != null && desModifiers.size() > 0 && groupeChanged == false)
 				{
@@ -341,14 +370,18 @@ public class Main extends FragmentActivity {
 								+" "+uneLM.getEnd());
 					}
 					else{
-						int count = 0;
+						int cn = 0;
 						for(Day unJM : desModifiers)
 						{
-							count += unJM.getLessons().size();
+							cn += unJM.getLessons().size();
 						}
-						Notification("Emploi du temps mise à jour","Vous avez "+count+" cours modifiés");
+						Notification("Emploi du temps mise à jour","Vous avez une modification dans sur votre emplois du temps");
+						
+					
 					}
-				}else if(groupeChanged = true) // Le groupe à été changé
+					
+
+				}else if(groupeChanged == true) // Le groupe à été changé
 				{
 					groupeChanged = false;
 				}

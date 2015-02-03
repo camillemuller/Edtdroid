@@ -36,9 +36,8 @@
             android:id="@+id/vpDays"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="50dip" />
+            />
+
     </LinearLayout>
-
-
 
 </RelativeLayout>
